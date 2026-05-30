@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrocAdo — L'économie circulaire commence au collège</title>
+<meta name="description" content="TrocAdo est la plateforme d'échange d'objets entre collégiens, sécurisée et gérée par votre établissement. Économie circulaire, pédagogie, équité sociale.">
+<meta property="og:title" content="TrocAdo — L'économie circulaire commence au collège">
+<meta property="og:description" content="Plateforme d'échange entre ados, contrôlée par les établissements scolaires.">
+<meta property="og:image" content="https://www.trocado.fr/og-image.png">
+<link rel="canonical" href="https://www.trocado.fr">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   VARIABLES & RESET
+═══════════════════════════════════════════════════════════════ */
+:root {
+  --navy:   #0D2B4B;
+  --blue:   #1565C0;
+  --teal:   #00897B;
+  --mint:   #00BFA5;
+  --lgray:  #F0F7F6;
+  --gray:   #546E7A;
+  --lgray2: #E8F5F3;
+  --gold:   #F9A825;
+  --coral:  #E53935;
+  --white:  #FFFFFF;
+  --offwh:  #F8FCFB;
+  --radius: 14px;
+  --shadow: 0 8px 32px rgba(13,43,75,.10);
+  --shadow-lg: 0 20px 60px rgba(13,43,75,.16);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--offwh);
+  color: var(--navy);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; border: none; font-family: inherit; }
+
+/* ═══════════════════════════════════════════════════════════════
+   UTILITIES
+═══════════════════════════════════════════════════════════════ */
+.container { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+.tag {
+  display: inline-block; background: var(--lgray2); color: var(--teal);
+  font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 20px; margin-bottom: 14px;
+}
+.section-title {
+  font-family: 'Syne', sans-serif; font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800; color: var(--navy); line-height: 1.15;
+}
+.section-sub {
+  font-size: 17px; color: var(--gray); margin-top: 12px; max-width: 560px;
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; border-radius: 50px; font-size: 15px;
+  font-weight: 600; font-family: 'DM Sans', sans-serif;
+  transition: all .25s ease; text-align: center;
+}
+.btn-primary {
+  background: var(--teal); color: #fff;
+  box-shadow: 0 4px 20px rgba(0,137,123,.35);
+}
+.btn-primary:hover { background: var(--mint); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,191,165,.4); }
+.btn-outline {
+  background: transparent; color: var(--navy);
+  border: 2px solid rgba(13,43,75,.2);
+}
+.btn-outline:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-2px); }
+
+/* Scroll reveal */
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity .65s ease, transform .65s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: .1s; }
+.reveal-delay-2 { transition-delay: .2s; }
+.reveal-delay-3 { transition-delay: .3s; }
+.reveal-delay-4 { transition-delay: .4s; }
+
+/* ═══════════════════════════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 16px 0;
+  background: rgba(248,252,251,.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0,137,123,.12);
+  transition: box-shadow .3s;
+}
+nav.scrolled { box-shadow: 0 4px 24px rgba(13,43,75,.10); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; }
+.nav-logo {
+  font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800;
+  color: var(--navy); letter-spacing: -0.5px;
+}
+.nav-logo span { color: var(--teal); }
+.nav-links { display: flex; gap: 28px; align-items: center; }
+.nav-links a {
+  font-size: 14px; font-weight: 500; color: var(--gray);
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--teal); }
+.nav-cta {
+  background: var(--navy); color: #fff !important;
+  padding: 10px 22px; border-radius: 50px; font-size: 14px !important;
+  font-weight: 600 !important; transition: background .2s !important;
+}
+.nav-cta:hover { background: var(--teal) !important; color: #fff !important; }
+.nav-burger { display: none; flex-direction: column; gap: 5px; background: none; padding: 6px; }
+.nav-burger span { display: block; width: 24px; height: 2px; background: var(--navy); border-radius: 2px; transition: all .3s; }
+
+/* ═══════════════════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding-top: 90px;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(0,137,123,.10) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 10% 80%, rgba(21,101,192,.07) 0%, transparent 60%),
+    var(--offwh);
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -120px; right: -120px;
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,191,165,.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+  align-items: center; padding: 80px 0;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--lgray2); border: 1px solid rgba(0,137,123,.2);
+  color: var(--teal); font-size: 12px; font-weight: 600;
+  letter-spacing: .8px; text-transform: uppercase;
+  padding: 6px 16px; border-radius: 20px; margin-bottom: 24px;
+}
+.hero-eyebrow::before { content: '●'; font-size: 8px; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(36px, 5vw, 58px); font-weight: 800;
+  line-height: 1.1; color: var(--navy); margin-bottom: 20px;
+}
+.hero h1 em { font-style: normal; color: var(--teal); }
+.hero-sub {
+  font-size: 18px; color: var(--gray); line-height: 1.65;
+  margin-bottom: 36px; max-width: 480px;
+}
+.hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 40px; }
+.store-badges { display: flex; gap: 12px; flex-wrap: wrap; }
+.store-badge {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--navy); color: #fff;
+  padding: 11px 20px; border-radius: 10px;
+  opacity: .55; cursor: not-allowed;
+  position: relative;
+}
+.store-badge::after {
+  content: 'Bientôt disponible';
+  position: absolute; top: -26px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--navy); color: #fff;
+  font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 4px;
+  white-space: nowrap; opacity: 0; transition: opacity .2s; pointer-events: none;
+}
+.store-badge:hover::after { opacity: 1; }
+.store-badge svg { width: 20px; height: 20px; fill: #fff; flex-shrink: 0; }
+.store-badge-text { text-align: left; }
+.store-badge-text small { display: block; font-size: 9px; opacity: .7; text-transform: uppercase; letter-spacing: .5px; }
+.store-badge-text strong { display: block; font-size: 14px; font-weight: 700; }
+
+/* Hero visual */
+.hero-visual {
+  display: flex; justify-content: center; align-items: center;
+  position: relative;
+}
+.hero-phone-wrap {
+  position: relative; width: 280px;
+}
+.hero-phone {
+  width: 260px; aspect-ratio: 9/19;
+  background: var(--navy);
+  border-radius: 38px; padding: 16px 12px;
+  box-shadow: var(--shadow-lg), 0 0 0 8px rgba(0,137,123,.1);
+  margin: 0 auto; position: relative; z-index: 2;
+}
+.phone-notch {
+  width: 80px; height: 22px; background: #000;
+  border-radius: 0 0 14px 14px; margin: 0 auto 10px;
+}
+.phone-screen {
+  background: var(--lgray); border-radius: 22px; overflow: hidden;
+  height: calc(100% - 32px);
+  display: flex; flex-direction: column;
+}
+.phone-header {
+  background: var(--teal); padding: 12px 14px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.phone-header-logo {
+  font-family: 'Syne',sans-serif; font-size: 14px;
+  font-weight: 800; color: #fff;
+}
+.phone-items { padding: 10px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.phone-item {
+  background: #fff; border-radius: 10px; padding: 10px;
+  display: flex; gap: 8px; align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  animation: floatIn 3s ease-in-out infinite;
+}
+.phone-item:nth-child(2) { animation-delay: .5s; }
+.phone-item:nth-child(3) { animation-delay: 1s; }
+@keyframes floatIn {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+.phone-item-emoji { font-size: 24px; }
+.phone-item-info { flex: 1; }
+.phone-item-title { font-size: 11px; font-weight: 700; color: var(--navy); }
+.phone-item-sub { font-size: 9px; color: var(--gray); }
+.phone-item-badge {
+  background: var(--lgray2); color: var(--teal);
+  font-size: 8px; font-weight: 700; padding: 2px 6px; border-radius: 6px;
+}
+.phone-cta-bar {
+  background: var(--navy); padding: 10px;
+  text-align: center; font-size: 9px; color: var(--mint); font-weight: 700;
+}
+
+/* Floating cards */
+.float-card {
+  position: absolute; background: #fff;
+  border-radius: 12px; padding: 10px 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  font-size: 12px; z-index: 3;
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+.float-card.left { left: -50px; top: 30%; animation-delay: .5s; }
+.float-card.right { right: -50px; bottom: 25%; animation-delay: 1.2s; }
+.float-card strong { display: block; font-weight: 700; color: var(--navy); font-size: 13px; }
+.float-card span { color: var(--gray); font-size: 11px; }
+.float-card .dot { display: inline-block; width: 8px; height: 8px; background: var(--mint); border-radius: 50%; margin-right: 5px; }
+
+/* Hero stats */
+.hero-stats { display: flex; gap: 24px; flex-wrap: wrap; }
+.hero-stat {}
+.hero-stat strong { display: block; font-family: 'Syne',sans-serif; font-size: 28px; font-weight: 800; color: var(--teal); }
+.hero-stat span { font-size: 12px; color: var(--gray); font-weight: 500; }
+
+/* ═══════════════════════════════════════════════════════════════
+   FEATURES
+═══════════════════════════════════════════════════════════════ */
+.features { padding: 100px 0; background: var(--white); }
+.features-header { text-align: center; max-width: 640px; margin: 0 auto 64px; }
+.features-header .section-sub { margin: 12px auto 0; }
+.features-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+}
+.feature-card {
+  background: var(--offwh); border-radius: var(--radius);
+  padding: 32px 28px; border: 1px solid transparent;
+  transition: all .3s ease;
+}
+.feature-card:hover {
+  border-color: var(--mint); background: #fff;
+  box-shadow: var(--shadow); transform: translateY(-4px);
+}
+.feature-icon {
+  width: 52px; height: 52px; border-radius: 14px;
+  background: var(--lgray2); display: flex; align-items: center;
+  justify-content: center; font-size: 24px; margin-bottom: 18px;
+}
+.feature-title { font-family:'Syne',sans-serif; font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+.feature-desc { font-size: 14px; color: var(--gray); line-height: 1.6; }
+
+/* ═══════════════════════════════════════════════════════════════
+   DIFFÉRENCIATION
+═══════════════════════════════════════════════════════════════ */
+.differents {
+  padding: 100px 0;
+  background: var(--navy);
+  position: relative; overflow: hidden;
+}
+.differents::before {
+  content: '';
+  position: absolute; top: -200px; right: -200px;
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,191,165,.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.differents-header { max-width: 680px; margin: 0 auto 64px; text-align: center; }
+.differents-header .section-title { color: #fff; }
+.differents-header .section-sub { color: rgba(255,255,255,.55); margin: 0 auto; }
+.diff-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+.diff-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--radius); padding: 40px 32px;
+  position: relative; overflow: hidden;
+  transition: all .3s;
+}
+.diff-card:hover { background: rgba(0,191,165,.08); border-color: rgba(0,191,165,.25); transform: translateY(-4px); }
+.diff-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.diff-card:nth-child(1)::before { background: var(--mint); }
+.diff-card:nth-child(2)::before { background: var(--gold); }
+.diff-card:nth-child(3)::before { background: var(--coral); }
+.diff-number {
+  font-family: 'Syne',sans-serif; font-size: 60px; font-weight: 800;
+  color: rgba(255,255,255,.06); line-height: 1; margin-bottom: -10px;
+}
+.diff-emoji { font-size: 36px; margin-bottom: 16px; display: block; }
+.diff-title { font-family:'Syne',sans-serif; font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 12px; }
+.diff-desc { font-size: 14.5px; color: rgba(255,255,255,.55); line-height: 1.65; }
+
+/* ═══════════════════════════════════════════════════════════════
+   FORMULES
+═══════════════════════════════════════════════════════════════ */
+.pricing { padding: 100px 0; background: var(--offwh); }
+.pricing-header { text-align: center; max-width: 640px; margin: 0 auto 64px; }
+.pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; align-items: start; }
+.pricing-card {
+  background: #fff; border-radius: var(--radius);
+  padding: 36px 28px; border: 2px solid #E8F0F7;
+  position: relative; transition: all .3s;
+}
+.pricing-card:hover { box-shadow: var(--shadow); transform: translateY(-4px); }
+.pricing-card.featured {
+  background: var(--navy); border-color: var(--teal);
+  transform: scale(1.04);
+  box-shadow: var(--shadow-lg);
+}
+.pricing-card.featured:hover { transform: scale(1.04) translateY(-4px); }
+.pricing-badge {
+  display: inline-block;
+  background: var(--teal); color: #fff;
+  font-size: 11px; font-weight: 700; letter-spacing: .8px;
+  text-transform: uppercase; padding: 4px 12px; border-radius: 20px;
+  margin-bottom: 16px;
+}
+.pricing-name {
+  font-family: 'Syne',sans-serif; font-size: 22px; font-weight: 800;
+  color: var(--navy); margin-bottom: 6px;
+}
+.pricing-card.featured .pricing-name { color: #fff; }
+.pricing-desc { font-size: 13px; color: var(--gray); margin-bottom: 24px; }
+.pricing-card.featured .pricing-desc { color: rgba(255,255,255,.55); }
+.pricing-price {
+  font-family: 'Syne',sans-serif; font-size: 36px; font-weight: 800;
+  color: var(--teal); margin-bottom: 4px;
+}
+.pricing-price span { font-size: 15px; font-weight: 400; color: var(--gray); }
+.pricing-card.featured .pricing-price { color: var(--mint); }
+.pricing-divider { height: 1px; background: rgba(0,0,0,.06); margin: 24px 0; }
+.pricing-card.featured .pricing-divider { background: rgba(255,255,255,.1); }
+.pricing-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+.pricing-features li {
+  font-size: 13.5px; color: var(--gray); display: flex; align-items: flex-start; gap: 8px;
+}
+.pricing-card.featured .pricing-features li { color: rgba(255,255,255,.7); }
+.pricing-features li::before { content: '✓'; color: var(--teal); font-weight: 700; flex-shrink: 0; }
+.pricing-features li.off { opacity: .4; }
+.pricing-features li.off::before { content: '—'; color: inherit; }
+.pricing-cta {
+  width: 100%; padding: 14px; border-radius: 50px;
+  font-size: 14px; font-weight: 700; font-family: 'DM Sans',sans-serif;
+  transition: all .25s;
+  background: var(--lgray2); color: var(--teal);
+}
+.pricing-cta:hover { background: var(--teal); color: #fff; }
+.pricing-card.featured .pricing-cta { background: var(--teal); color: #fff; }
+.pricing-card.featured .pricing-cta:hover { background: var(--mint); }
+
+/* ═══════════════════════════════════════════════════════════════
+   CONTACT FORM
+═══════════════════════════════════════════════════════════════ */
+.contact { padding: 100px 0; background: var(--white); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.contact-left {}
+.contact-left .section-sub { margin-top: 12px; }
+.contact-perks { margin-top: 36px; display: flex; flex-direction: column; gap: 16px; }
+.contact-perk { display: flex; align-items: flex-start; gap: 14px; }
+.contact-perk-icon {
+  width: 40px; height: 40px; flex-shrink: 0;
+  background: var(--lgray2); border-radius: 10px;
+  display: flex; align-items: center; justify-content: center; font-size: 18px;
+}
+.contact-perk-text strong { display: block; font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 2px; }
+.contact-perk-text span { font-size: 13px; color: var(--gray); }
+
+.form-card {
+  background: var(--offwh); border-radius: 20px;
+  padding: 40px 36px; border: 1px solid rgba(0,137,123,.1);
+}
+.form-title { font-family:'Syne',sans-serif; font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 28px; }
+.form-group { margin-bottom: 18px; }
+.form-group label {
+  display: block; font-size: 13px; font-weight: 600;
+  color: var(--navy); margin-bottom: 6px;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%; padding: 12px 16px;
+  border: 1.5px solid #DDE8F0; border-radius: 10px;
+  font-family: 'DM Sans',sans-serif; font-size: 14px;
+  color: var(--navy); background: #fff;
+  transition: border-color .2s, box-shadow .2s;
+  outline: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--teal); box-shadow: 0 0 0 3px rgba(0,137,123,.12);
+}
+.form-group textarea { height: 110px; resize: vertical; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-submit {
+  width: 100%; padding: 15px;
+  background: var(--teal); color: #fff;
+  border-radius: 50px; font-size: 15px; font-weight: 700;
+  font-family: 'DM Sans',sans-serif;
+  transition: all .25s;
+  box-shadow: 0 4px 20px rgba(0,137,123,.3);
+}
+.form-submit:hover { background: var(--navy); box-shadow: 0 8px 28px rgba(13,43,75,.25); transform: translateY(-2px); }
+.form-success {
+  display: none; background: var(--lgray2); border: 1px solid var(--mint);
+  border-radius: 10px; padding: 16px; text-align: center;
+  color: var(--teal); font-weight: 600; font-size: 14px;
+  margin-top: 14px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FAQ
+═══════════════════════════════════════════════════════════════ */
+.faq { padding: 100px 0; background: var(--lgray); }
+.faq-header { text-align: center; max-width: 560px; margin: 0 auto 56px; }
+.faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+.faq-item {
+  background: #fff; border-radius: 12px;
+  border: 1px solid rgba(0,137,123,.1);
+  overflow: hidden; transition: box-shadow .2s;
+}
+.faq-item:hover { box-shadow: var(--shadow); }
+.faq-question {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 24px; background: none;
+  font-family: 'DM Sans',sans-serif; font-size: 15px;
+  font-weight: 600; color: var(--navy); text-align: left;
+  transition: color .2s;
+}
+.faq-question:hover { color: var(--teal); }
+.faq-arrow {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--lgray2); display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all .3s;
+  color: var(--teal); font-size: 16px; font-weight: 700;
+}
+.faq-item.open .faq-arrow { background: var(--teal); color: #fff; transform: rotate(45deg); }
+.faq-answer {
+  max-height: 0; overflow: hidden;
+  transition: max-height .4s ease, padding .3s;
+  padding: 0 24px;
+}
+.faq-item.open .faq-answer { max-height: 300px; padding: 0 24px 20px; }
+.faq-answer p { font-size: 14.5px; color: var(--gray); line-height: 1.7; }
+
+/* ═══════════════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════════════ */
+footer {
+  background: var(--navy); color: rgba(255,255,255,.6);
+  padding: 64px 0 32px;
+}
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px; padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.footer-brand .nav-logo { font-size: 24px; color: #fff; margin-bottom: 12px; }
+.footer-brand p { font-size: 13.5px; line-height: 1.65; max-width: 260px; }
+.footer-col h4 {
+  font-family: 'Syne',sans-serif; font-size: 13px; font-weight: 700;
+  color: #fff; text-transform: uppercase; letter-spacing: .8px; margin-bottom: 16px;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col ul a { font-size: 13.5px; transition: color .2s; }
+.footer-col ul a:hover { color: var(--mint); }
+.footer-socials { display: flex; gap: 10px; margin-top: 20px; }
+.social-link {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center;
+  font-size: 16px; transition: background .2s;
+}
+.social-link:hover { background: var(--teal); }
+.footer-bottom {
+  padding-top: 28px; display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: gap;
+}
+.footer-bottom p { font-size: 12.5px; }
+.footer-legal { display: flex; gap: 20px; }
+.footer-legal a { font-size: 12.5px; transition: color .2s; }
+.footer-legal a:hover { color: var(--mint); }
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE NAV
+═══════════════════════════════════════════════════════════════ */
+.mobile-menu {
+  display: none; position: fixed; top: 70px; left: 0; right: 0;
+  background: #fff; padding: 20px 28px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.12);
+  z-index: 99; flex-direction: column; gap: 16px;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a { font-size: 16px; font-weight: 500; color: var(--navy); padding: 8px 0; border-bottom: 1px solid var(--lgray); }
+.mobile-menu a:last-child { border: none; color: var(--teal); font-weight: 700; }
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════════════════ */
+@media (max-width: 960px) {
+  .features-grid { grid-template-columns: repeat(2,1fr); }
+  .diff-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .pricing-card.featured { transform: none; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+  .hero-sub, .hero-stats { margin: 0 auto 24px; }
+  .hero-ctas { justify-content: center; }
+  .store-badges { justify-content: center; }
+  .hero-visual { order: -1; }
+  .float-card.left, .float-card.right { display: none; }
+  .features-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .nav-burger { display: flex; }
+  .form-row { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+}
+@media (max-width: 480px) {
+  .container { padding: 0 18px; }
+  .hero-phone-wrap { width: 220px; }
+  .hero-phone { width: 210px; }
+  .section-title { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ NAV ═══════════════════ -->
+<nav id="navbar" role="navigation" aria-label="Navigation principale">
+  <div class="container nav-inner">
+    <a href="#" class="nav-logo">Troc<span>Ado</span></a>
+    <div class="nav-links" role="menubar">
+      <a href="#fonctionnalites" role="menuitem">Fonctionnalités</a>
+      <a href="#differents" role="menuitem">Pourquoi nous</a>
+      <a href="#formules" role="menuitem">Formules</a>
+      <a href="#faq" role="menuitem">FAQ</a>
+      <a href="#contact" class="nav-cta" role="menuitem">Demander une démo</a>
+    </div>
+    <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu" role="menu">
+  <a href="#fonctionnalites" role="menuitem">Fonctionnalités</a>
+  <a href="#differents" role="menuitem">Pourquoi nous</a>
+  <a href="#formules" role="menuitem">Formules</a>
+  <a href="#faq" role="menuitem">FAQ</a>
+  <a href="#contact" role="menuitem">Demander une démo →</a>
+</div>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="hero" aria-label="Introduction TrocAdo">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow reveal">Projet éducatif &amp; écoresponsable</div>
+        <h1 class="reveal reveal-delay-1">
+          L'échange entre ados,<br>
+          <em>encadré et valorisé</em><br>
+          par l'école
+        </h1>
+        <p class="hero-sub reveal reveal-delay-2">
+          TrocAdo est la plateforme d'échange d'objets entre collégiens, 
+          intégralement gérée par votre établissement. Zéro argent, zéro réseau social externe, 100% pédagogique.
+        </p>
+        <div class="hero-ctas reveal reveal-delay-3">
+          <a href="#contact" class="btn btn-primary">Demander une démo →</a>
+          <a href="#fonctionnalites" class="btn btn-outline">Découvrir l'appli</a>
+        </div>
+        <div class="store-badges reveal reveal-delay-4" aria-label="Téléchargements bientôt disponibles">
+          <!-- Apple Store badge -->
+          <div class="store-badge" role="img" aria-label="Bientôt sur l'App Store">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            <div class="store-badge-text">
+              <small>Télécharger sur</small>
+              <strong>App Store</strong>
+            </div>
+          </div>
+          <!-- Google Play badge -->
+          <div class="store-badge" role="img" aria-label="Bientôt sur Google Play">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.18 23.76a2 2 0 0 1-.93-1.76V2a2 2 0 0 1 .93-1.76l.09-.05 12.09 12.09v.29L3.27 23.81l-.09-.05zM20.46 15.28l-3.22-1.84-3.23 3.22 3.23 3.24 3.22-1.85a2 2 0 0 0 0-2.77zM3.27.24l12.09 12.09-3.23 3.22-8.86-14.96V.24zm0 23.52v-.36l8.86-14.96L15.36 11.7 3.27 23.76z"/></svg>
+            <div class="store-badge-text">
+              <small>Disponible sur</small>
+              <strong>Google Play</strong>
+            </div>
+          </div>
+        </div>
+        <div class="hero-stats reveal" style="margin-top:36px">
+          <div class="hero-stat"><strong>4 sem.</strong><span>Déploiement</span></div>
+          <div class="hero-stat"><strong>100%</strong><span>Contrôle admin</span></div>
+          <div class="hero-stat"><strong>0 €</strong><span>Pour les élèves</span></div>
+        </div>
+      </div>
+
+      <!-- Visual -->
+      <div class="hero-visual reveal reveal-delay-2">
+        <div class="hero-phone-wrap">
+          <div class="float-card left">
+            <span class="dot"></span>
+            <strong>Échange validé ✓</strong>
+            <span>Nike Air Max ↔ Casio</span>
+          </div>
+          <div class="hero-phone" role="img" aria-label="Aperçu de l'application TrocAdo">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="phone-header">
+                <div class="phone-header-logo">TrocAdo</div>
+                <span style="color:#fff;font-size:11px">🔔 3</span>
+              </div>
+              <div class="phone-items">
+                <div class="phone-item">
+                  <div class="phone-item-emoji">🎮</div>
+                  <div class="phone-item-info">
+                    <div class="phone-item-title">Manette PS4</div>
+                    <div class="phone-item-sub">Contre jeux vidéo</div>
+                  </div>
+                  <div class="phone-item-badge">Dispo</div>
+                </div>
+                <div class="phone-item">
+                  <div class="phone-item-emoji">📚</div>
+                  <div class="phone-item-info">
+                    <div class="phone-item-title">Livres collège</div>
+                    <div class="phone-item-sub">Échange vêtements</div>
+                  </div>
+                  <div class="phone-item-badge">Dispo</div>
+                </div>
+                <div class="phone-item">
+                  <div class="phone-item-emoji">👟</div>
+                  <div class="phone-item-info">
+                    <div class="phone-item-title">Sneakers T39</div>
+                    <div class="phone-item-sub">Contre accessoires</div>
+                  </div>
+                  <div class="phone-item-badge">Dispo</div>
+                </div>
+              </div>
+              <div class="phone-cta-bar">🌱 Impact carbone : −2.4 kg CO₂ ce mois</div>
+            </div>
+          </div>
+          <div class="float-card right">
+            <strong>🏆 Nouveau badge</strong>
+            <span>Top échangeur du mois !</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FEATURES ═══════════════════ -->
+<section class="features" id="fonctionnalites" aria-labelledby="features-title">
+  <div class="container">
+    <div class="features-header">
+      <div class="tag reveal">Fonctionnalités</div>
+      <h2 class="section-title reveal reveal-delay-1" id="features-title">Tout ce dont un établissement a besoin</h2>
+      <p class="section-sub reveal reveal-delay-2">Un outil clé-en-main, pédagogique, que vous contrôlez entièrement.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">📋</div>
+        <div class="feature-title">Modération des annonces</div>
+        <p class="feature-desc">Chaque objet est soumis à validation avant publication. Vous refusez avec motif, tout est tracé.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon">🔍</div>
+        <div class="feature-title">Recherche par catégorie</div>
+        <p class="feature-desc">Jeux, livres, vêtements, services… Les élèves trouvent ce qu'ils cherchent en quelques secondes.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon">💬</div>
+        <div class="feature-title">Messagerie supervisée</div>
+        <p class="feature-desc">Les échanges de messages sont visibles par l'admin. Zéro contact hors plateforme requis.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="feature-icon">🚫</div>
+        <div class="feature-title">Objets interdits paramétrables</div>
+        <p class="feature-desc">Cartes à jouer, smartphones, consoles… Configurez vos propres règles selon votre règlement intérieur.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">Tableau de bord admin</div>
+        <p class="feature-desc">Stats en temps réel, rapport mensuel exportable, indicateurs d'impact écologique. 2-3 min/demande.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon">🏆</div>
+        <div class="feature-title">Récompenses officielles</div>
+        <p class="feature-desc">Bons d'achat, PC portable, certificat du Directeur ou du Maire. Les élèves actifs sont valorisés.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ DIFFÉRENCIATION ═══════════════════ -->
+<section class="differents" id="differents" aria-labelledby="diff-title">
+  <div class="container">
+    <div class="differents-header">
+      <div class="tag reveal" style="background:rgba(255,255,255,.08);color:var(--mint)">Ce qui change vraiment</div>
+      <h2 class="section-title reveal reveal-delay-1" id="diff-title">Pas juste une appli — un projet éducatif</h2>
+      <p class="section-sub reveal reveal-delay-2">TrocAdo transforme une pratique déjà existante en levier pédagogique officiel.</p>
+    </div>
+    <div class="diff-grid">
+      <div class="diff-card reveal">
+        <div class="diff-number">01</div>
+        <span class="diff-emoji">🌍</span>
+        <div class="diff-title">Zéro argent, zéro dépense</div>
+        <p class="diff-desc">L'économie circulaire accessible à tous les ados, y compris en ZEP. Chaque échange remplace un achat neuf et réduit l'empreinte carbone de l'établissement — mesurée, valorisée, et communiquée.</p>
+      </div>
+      <div class="diff-card reveal reveal-delay-1">
+        <div class="diff-number">02</div>
+        <span class="diff-emoji">🛡️</span>
+        <div class="diff-title">Sécurité totale, cadre officiel</div>
+        <p class="diff-desc">L'établissement reprend la main sur des échanges qui se font déjà — mais sans vous. Valeur maximale, catégories bloquées, historique traçable, médiation intégrée. Vous êtes aux commandes.</p>
+      </div>
+      <div class="diff-card reveal reveal-delay-2">
+        <div class="diff-number">03</div>
+        <span class="diff-emoji">📚</span>
+        <div class="diff-title">Des compétences pour la vie</div>
+        <p class="diff-desc">Négociation, responsabilité, numérique, économie circulaire : des apprentissages alignés avec les programmes d'EMC. Un outil différenciant pour votre communication institutionnelle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FORMULES ═══════════════════ -->
+<section class="pricing" id="formules" aria-labelledby="pricing-title">
+  <div class="container">
+    <div class="pricing-header">
+      <div class="tag reveal">Formules</div>
+      <h2 class="section-title reveal reveal-delay-1" id="pricing-title">Choisissez votre formule</h2>
+      <p class="section-sub reveal reveal-delay-2" style="margin:12px auto 0">Licence annuelle par établissement — déploiement en 4 semaines.</p>
+    </div>
+    <div class="pricing-grid">
+
+      <!-- Pilote -->
+      <div class="pricing-card reveal">
+        <div class="pricing-name">Établissement Pilote</div>
+        <p class="pricing-desc">Pour tester TrocAdo sur une classe avant un déploiement complet.</p>
+        <div class="pricing-price">À définir <span>/ an</span></div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li>Accès pour 1 classe test (30 élèves)</li>
+          <li>Interface admin CPE incluse</li>
+          <li>Formation équipe (2h)</li>
+          <li>Rapport d'impact mensuel</li>
+          <li class="off">Récompenses partenaires</li>
+          <li class="off">Délégués co-modérateurs</li>
+          <li class="off">Rapport d'impact annuel personnalisé</li>
+        </ul>
+        <button class="pricing-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" aria-label="Démarrer formule Pilote">Démarrer le pilote</button>
+      </div>
+
+      <!-- Standard — FEATURED -->
+      <div class="pricing-card featured reveal reveal-delay-1" aria-label="Formule recommandée">
+        <div class="pricing-badge">⭐ Recommandée</div>
+        <div class="pricing-name">Licence Standard</div>
+        <p class="pricing-desc">La formule complète pour tout l'établissement, dès la rentrée.</p>
+        <div class="pricing-price">Sur devis <span>/ an</span></div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li>Accès illimité — tous les élèves</li>
+          <li>Interface admin CPE + Direction</li>
+          <li>Formation équipe incluse</li>
+          <li>Rapport d'impact mensuel</li>
+          <li>Récompenses partenaires configurables</li>
+          <li>Délégués co-modérateurs sous supervision</li>
+          <li>Support prioritaire inclus</li>
+        </ul>
+        <button class="pricing-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" aria-label="Demander un devis Licence Standard">Demander un devis</button>
+      </div>
+
+      <!-- Premium -->
+      <div class="pricing-card reveal reveal-delay-2">
+        <div class="pricing-name">Partenaire Premium</div>
+        <p class="pricing-desc">Pour les collectivités, réseaux d'établissements et partenaires institutionnels.</p>
+        <div class="pricing-price">Sur mesure</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li>Déploiement multi-établissements</li>
+          <li>Admin réseau centralisé</li>
+          <li>Rapport d'impact intercollèges</li>
+          <li>Récompenses Maire / collectivité</li>
+          <li>Co-branding établissement</li>
+          <li>Accès API & données anonymisées</li>
+          <li>Account manager dédié</li>
+        </ul>
+        <button class="pricing-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" aria-label="Nous contacter pour formule Premium">Nous contacter</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CONTACT ═══════════════════ -->
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-left">
+        <div class="tag reveal">Contact</div>
+        <h2 class="section-title reveal reveal-delay-1" id="contact-title">On vient vous présenter TrocAdo en 30 min</h2>
+        <p class="section-sub reveal reveal-delay-2">Pas d'engagement. Juste une démonstration de l'interface admin en action dans votre établissement.</p>
+        <div class="contact-perks reveal reveal-delay-3">
+          <div class="contact-perk">
+            <div class="contact-perk-icon">🎯</div>
+            <div class="contact-perk-text">
+              <strong>Démo personnalisée</strong>
+              <span>On adapte la présentation à votre contexte établissement</span>
+            </div>
+          </div>
+          <div class="contact-perk">
+            <div class="contact-perk-icon">⚡</div>
+            <div class="contact-perk-text">
+              <strong>Réponse sous 48h</strong>
+              <span>Marine vous recontacte rapidement pour fixer un créneau</span>
+            </div>
+          </div>
+          <div class="contact-perk">
+            <div class="contact-perk-icon">🤝</div>
+            <div class="contact-perk-text">
+              <strong>Convention pilote disponible</strong>
+              <span>Démarrez sans engagement annuel sur une classe test</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-card reveal reveal-delay-2">
+        <div class="form-title">Déposer une demande</div>
+        <form id="contact-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nom">Nom *</label>
+              <input type="text" id="nom" name="nom" placeholder="Votre nom" required aria-required="true">
+            </div>
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" placeholder="votre@email.fr" required aria-required="true">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="etablissement">Établissement</label>
+            <input type="text" id="etablissement" name="etablissement" placeholder="Nom du collège / lycée">
+          </div>
+          <div class="form-group">
+            <label for="sujet">Sujet *</label>
+            <select id="sujet" name="sujet" required aria-required="true">
+              <option value="">— Choisir un sujet —</option>
+              <option value="demo">Présentation / Démo</option>
+              <option value="partenariat">Partenariat</option>
+              <option value="presse">Presse</option>
+              <option value="autre">Autre</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" placeholder="Votre message…" required aria-required="true"></textarea>
+          </div>
+          <button type="submit" class="form-submit">Envoyer ma demande →</button>
+          <div class="form-success" id="form-success" role="alert" aria-live="polite">
+            ✅ Message envoyé ! Marine vous recontacte sous 48h.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FAQ ═══════════════════ -->
+<section class="faq" id="faq" aria-labelledby="faq-title">
+  <div class="container">
+    <div class="faq-header">
+      <div class="tag reveal">FAQ</div>
+      <h2 class="section-title reveal reveal-delay-1" id="faq-title">Questions fréquentes</h2>
+    </div>
+    <div class="faq-list reveal reveal-delay-2" role="list">
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-a1">
+          Les smartphones sont interdits à la rentrée 2026 — TrocAdo fonctionnera quand même ?
+          <span class="faq-arrow" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" id="faq-a1" role="region">
+          <p>Oui, sans problème. TrocAdo fonctionne sur les ordinateurs du CDI et les tablettes de l'établissement. Ce n'est pas une appli à utiliser en classe — les élèves gèrent leurs échanges hors temps scolaire, sous votre supervision. L'interdiction des smartphones n'affecte en rien son fonctionnement.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-a2">
+          Comment éviter les vols, le racket ou les objets de trop grande valeur ?
+          <span class="faq-arrow" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" id="faq-a2" role="region">
+          <p>Trois protections cumulées : (1) vous fixez une valeur maximale d'objet dans les paramètres admin, (2) vous bloquez des catégories entières si besoin (consoles, cartes à jouer…), (3) chaque échange laisse une trace numérique complète exploitable en cas de litige. Les échanges physiques se font dans l'enceinte scolaire, en présence d'un référent.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-a3">
+          Ça ne risque pas de créer les mêmes tensions que les cartes Pokémon ?
+          <span class="faq-arrow" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" id="faq-a3" role="region">
+          <p>C'est précisément le contraire. Les cartes Pokémon ont été interdites parce que les échanges se faisaient sans cadre, sans preuve, et créaient des tensions incontrôlables. TrocAdo est ce cadre officiel : tout est tracé, validé par vous, et se passe dans un contexte défini par l'établissement lui-même.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-a4">
+          Est-ce que ça représente une charge de travail importante pour le CPE ?
+          <span class="faq-arrow" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" id="faq-a4" role="region">
+          <p>Non. Le tableau de bord est conçu pour être rapide : 2 à 3 minutes par demande. Un binôme de délégués de classe peut être co-modérateur sous votre supervision, ce qui allège encore la charge. Le rapport mensuel est généré automatiquement — zéro saisie manuelle de votre côté.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-a5">
+          Est-ce que c'est gratuit pour les élèves ?
+          <span class="faq-arrow" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" id="faq-a5" role="region">
+          <p>Totalement gratuit pour les élèves — c'est au cœur du projet. TrocAdo fonctionne sur un modèle de licence annuelle payée par l'établissement. Aucune transaction d'argent n'a lieu entre élèves sur la plateforme.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-a6">
+          Qui est derrière TrocAdo ?
+          <span class="faq-arrow" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" id="faq-a6" role="region">
+          <p>TrocAdo est un projet familial : Marine (porteuse du projet, M2 Stratégie Digitale & Communication d'Influence — Digital Campus), Ilhéna et Noah (anciens collégiens de Saint-Vincent, Paris 18e), et Chrystelle (ancienne membre active de l'APEL). Le projet est né d'une réalité vécue dans les établissements parisiens.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-a7">
+          Combien de temps pour déployer TrocAdo dans mon établissement ?
+          <span class="faq-arrow" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer" id="faq-a7" role="region">
+          <p>4 semaines : semaine 1 signature & paramétrage admin, semaine 2 formation équipe + présentation aux élèves, semaine 3 pilote sur une classe test, mois 2 ouverture à tout l'établissement. L'objectif est d'être opérationnel dès la rentrée suivante.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo">Troc<span style="color:var(--mint)">Ado</span></div>
+        <p>L'économie circulaire commence au collège. Plateforme d'échange entre élèves, gérée par les établissements scolaires.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-link" aria-label="Instagram TrocAdo">📸</a>
+          <a href="#" class="social-link" aria-label="TikTok TrocAdo">🎵</a>
+          <a href="#" class="social-link" aria-label="LinkedIn TrocAdo">💼</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Produit</h4>
+        <ul>
+          <li><a href="#fonctionnalites">Fonctionnalités</a></li>
+          <li><a href="#formules">Formules</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Démo gratuite</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>À propos</h4>
+        <ul>
+          <li><a href="#">Notre histoire</a></li>
+          <li><a href="#">L'équipe</a></li>
+          <li><a href="#">Presse</a></li>
+          <li><a href="#">Partenariats</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@trocado.fr">hello@trocado.fr</a></li>
+          <li><a href="#">www.trocado.fr</a></li>
+          <li><a href="#contact">Demander une démo</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© TrocAdo 2025 — Tous droits réservés</p>
+      <div class="footer-legal">
+        <a href="#">Mentions légales</a>
+        <a href="#">Politique de confidentialité</a>
+        <a href="#">CGU</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════ JS ═══════════════════ -->
+<script>
+// ── Scroll reveal ──────────────────────────────────────────────
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.12 });
+reveals.forEach(el => observer.observe(el));
+
+// ── Navbar scroll ─────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// ── Mobile menu ───────────────────────────────────────────────
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobile-menu');
+burger.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  burger.setAttribute('aria-expanded', open);
+});
+mobileMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => { mobileMenu.classList.remove('open'); burger.setAttribute('aria-expanded','false'); });
+});
+
+// ── FAQ accordion ─────────────────────────────────────────────
+document.querySelectorAll('.faq-question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-question').setAttribute('aria-expanded','false');
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+    }
+  });
+});
+
+// ── Form ──────────────────────────────────────────────────────
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const fields = this.querySelectorAll('[required]');
+  let valid = true;
+  fields.forEach(f => {
+    f.style.borderColor = '';
+    if (!f.value.trim()) { f.style.borderColor = 'var(--coral)'; valid = false; }
+    if (f.type === 'email' && f.value && !f.value.includes('@')) { f.style.borderColor = 'var(--coral)'; valid = false; }
+  });
+  if (valid) {
+    const success = document.getElementById('form-success');
+    success.style.display = 'block';
+    this.reset();
+    setTimeout(() => { success.style.display = 'none'; }, 5000);
+  }
+});
+</script>
+</body>
+</html>

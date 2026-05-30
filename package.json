@@ -1,0 +1,9 @@
+{
+  "name": "trocado-landing",
+  "version": "1.0.0",
+  "description": "TrocAdo landing page",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {}
+}
