@@ -235,6 +235,24 @@ footer{background:var(--navy);border-top:1px solid var(--line);padding:48px 0 32
   .stats-strip{flex-direction:column;gap:20px}.stat{width:100%}
   .aud-tabs{overflow-x:auto}.at{white-space:nowrap}
 }
+
+/* ── PRICING ADDITIONS ── */
+.pc-free-badge{display:inline-block;background:rgba(2,195,154,.15);color:var(--mint);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;padding:3px 10px;border-radius:2px;margin-bottom:16px;border:1px solid rgba(2,195,154,.25)}
+.pc-sub{font-size:12px;color:rgba(255,255,255,.3);margin-top:4px;margin-bottom:0;font-style:italic}
+.pc-price-wrap{margin-bottom:4px}
+.pc-price-alt{font-size:18px;font-weight:600;color:rgba(2,195,154,.6);margin-top:2px}
+.pc-price-alt span{font-size:13px;color:rgba(255,255,255,.25);font-weight:400}
+
+/* ── FUNDING BAND ── */
+.funding-band{margin-top:24px;background:var(--surface);border:1px solid rgba(249,168,37,.2);border-radius:4px;padding:32px 36px;display:flex;gap:24px;align-items:flex-start}
+.funding-icon{font-size:32px;flex-shrink:0;margin-top:2px}
+.funding-title{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.funding-desc{font-size:14px;color:rgba(255,255,255,.45);line-height:1.6;margin-bottom:16px;max-width:680px}
+.funding-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.ftag{display:inline-block;background:rgba(249,168,37,.08);border:1px solid rgba(249,168,37,.2);color:rgba(249,168,37,.8);font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px}
+.funding-cta{display:inline-flex;align-items:center;gap:6px;background:var(--gold);color:var(--navy);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;padding:12px 24px;border-radius:3px;transition:opacity .2s}
+.funding-cta:hover{opacity:.85}
+@media(max-width:640px){.funding-band{flex-direction:column;padding:24px 20px}.funding-tags{gap:6px}.ftag{font-size:10px}}
 </style>
 </head>
 <body>
@@ -396,12 +414,94 @@ footer{background:var(--navy);border-top:1px solid var(--line);padding:48px 0 32
 <!-- PRICING -->
 <section class="s-price" id="price">
 <div class="wrap">
-  <div class="pr-h" data-r><div class="eyebrow">Formules</div><h2 class="display pr-h2">Choisissez<br>votre <em class="italic">niveau.</em></h2></div>
-  <div class="pr-grid">
-    <div class="pc" data-r><div class="pc-name">Établissement Pilote</div><p class="pc-desc">Tester sur une classe avant déploiement complet.</p><div class="pc-price">Sur devis</div><div class="pc-div"></div><ul class="pc-feats"><li>Accès pour 1 classe (30 élèves)</li><li>Interface admin incluse</li><li>Formation équipe (2h)</li><li>Rapport mensuel</li><li class="off">Récompenses partenaires</li><li class="off">Éco-délégués co-modérateurs</li></ul><button class="pc-btn" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Démarrer le pilote</button></div>
-    <div class="pc feat" data-r data-d="1"><div class="pc-badge">⭐ Recommandée</div><div class="pc-name">Licence Standard</div><p class="pc-desc">Tout l'établissement, dès la rentrée.</p><div class="pc-price">Sur devis <small>/ an</small></div><div class="pc-div"></div><ul class="pc-feats"><li>Accès illimité — tous les élèves</li><li>Interface admin CPE + Direction</li><li>Formation équipe incluse</li><li>Rapport d'impact mensuel</li><li>Récompenses partenaires</li><li>Éco-délégués co-modérateurs</li></ul><button class="pc-btn" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Demander un devis</button></div>
-    <div class="pc" data-r data-d="2"><div class="pc-name">Partenaire Premium</div><p class="pc-desc">Collectivités, réseaux, partenaires institutionnels.</p><div class="pc-price">Sur mesure</div><div class="pc-div"></div><ul class="pc-feats"><li>Multi-établissements</li><li>Admin réseau centralisé</li><li>Rapport d'impact intercollèges</li><li>Récompenses Maire / collectivité</li><li>Co-branding établissement</li><li>Account manager dédié</li></ul><button class="pc-btn" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Nous contacter</button></div>
+  <div class="pr-h" data-r>
+    <div class="eyebrow">Formules</div>
+    <h2 class="display pr-h2">Transparent.<br><em class="italic">Accessible.</em></h2>
+    <p style="font-size:15px;color:rgba(255,255,255,.4);margin-top:12px;line-height:1.6">Conçu pour rentrer dans le budget d'un établissement sans validation hiérarchique. Et si ce n'est pas le cas — on trouve un financement tiers à votre place.</p>
   </div>
+  <div class="pr-grid">
+
+    <!-- PILOTE -->
+    <div class="pc" data-r>
+      <div class="pc-free-badge">6 mois offerts</div>
+      <div class="pc-name">Pilote</div>
+      <p class="pc-desc">Testez TrocAdo sur une classe. Zéro engagement, zéro risque.</p>
+      <div class="pc-price">0€ <small>/ 6 mois</small></div>
+      <div class="pc-sub">Puis 299€/an si vous continuez</div>
+      <div class="pc-div"></div>
+      <ul class="pc-feats">
+        <li>1 classe pilote (jusqu'à 35 élèves)</li>
+        <li>IA de reconnaissance activée</li>
+        <li>Interface admin complète</li>
+        <li>Formation équipe (2h)</li>
+        <li>Rapport d'impact mensuel</li>
+        <li class="off">Récompenses partenaires</li>
+        <li class="off">Éco-délégués co-modérateurs</li>
+      </ul>
+      <button class="pc-btn" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Démarrer gratuitement →</button>
+    </div>
+
+    <!-- STANDARD — FEATURED -->
+    <div class="pc feat" data-r data-d="1">
+      <div class="pc-badge">⭐ La plus choisie</div>
+      <div class="pc-name">Licence Standard</div>
+      <p class="pc-desc">Tout l'établissement, dès la rentrée. Moins d'un café par semaine.</p>
+      <div class="pc-price-wrap">
+        <div class="pc-price">299€ <small>/ an</small></div>
+        <div class="pc-price-alt">ou 29€ <span>/ mois</span></div>
+      </div>
+      <div class="pc-sub" style="color:rgba(2,195,154,.7)">Soit moins de 1€/élève/an pour 300 élèves</div>
+      <div class="pc-div"></div>
+      <ul class="pc-feats">
+        <li>Accès illimité — tous les élèves</li>
+        <li>IA de reconnaissance + modération</li>
+        <li>Interface admin CPE + Direction</li>
+        <li>Formation équipe incluse</li>
+        <li>Rapport d'impact mensuel</li>
+        <li>Récompenses partenaires</li>
+        <li>Éco-délégués co-modérateurs</li>
+      </ul>
+      <button class="pc-btn" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Démarrer à 299€/an →</button>
+    </div>
+
+    <!-- PREMIUM -->
+    <div class="pc" data-r data-d="2">
+      <div class="pc-name">Réseau / Collectivité</div>
+      <p class="pc-desc">Mairie, Conseil Départemental, réseau APEL, diocèse. 1 acheteur = plusieurs établissements.</p>
+      <div class="pc-price">799€ <small>/ an</small></div>
+      <div class="pc-sub">Jusqu'à 5 établissements inclus</div>
+      <div class="pc-div"></div>
+      <ul class="pc-feats">
+        <li>Multi-établissements (jusqu'à 5)</li>
+        <li>Admin réseau centralisé</li>
+        <li>Rapport d'impact intercollèges</li>
+        <li>Récompenses Maire / collectivité</li>
+        <li>Co-branding établissement</li>
+        <li>Account manager dédié</li>
+      </ul>
+      <button class="pc-btn" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Nous contacter →</button>
+    </div>
+
+  </div>
+
+  <!-- BLOC FINANCEMENT TIERS -->
+  <div class="funding-band" data-r>
+    <div class="funding-icon">💡</div>
+    <div class="funding-content">
+      <div class="funding-title">Votre établissement n'a pas de budget dédié ? On s'en occupe.</div>
+      <p class="funding-desc">TrocAdo est éligible à plusieurs dispositifs de financement institutionnel. Votre licence peut être payée par une institution tierce — pas par votre budget scolaire.</p>
+      <div class="funding-tags">
+        <span class="ftag">Dispositif Edu-Up (jusqu'à 70k€)</span>
+        <span class="ftag">P2IA — France 2030</span>
+        <span class="ftag">Conseil Départemental</span>
+        <span class="ftag">Banque des Territoires</span>
+        <span class="ftag">APEL nationale</span>
+        <span class="ftag">Mairie / Commune</span>
+      </div>
+      <a href="#cta" class="funding-cta">Demander un montage de financement →</a>
+    </div>
+  </div>
+
 </div>
 </section>
 
